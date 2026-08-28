@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ToolsGrid } from "@/components/ToolsGrid";
+import { CurriculumGrid } from "@/components/CurriculumGrid";
 import { PricingSection } from "@/components/PricingSection";
 import { MembersSection } from "@/components/MembersSection";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -13,7 +13,7 @@ import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, TEXT_M
 // En haut du site, la banderole est la toute première chose lue : mélange de noms d'outils et de
 // promesses courtes plutôt qu'une simple répétition des 4 outils, pour que ça reste intéressant à
 // lire pendant qu'elle défile.
-const TICKER_ITEMS = ["JAM", "ROADMAP", "UN SEUL PARCOURS POUR APPRENDRE", "GUIDES", "BREAKDOWN", "SANS ENGAGEMENT"];
+const TICKER_ITEMS = ["GAME ART LOW POLY", "PAIEMENT UNIQUE", "IDÉE → JEU", "ROADMAP GRATUITE", "JAM"];
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -89,7 +89,7 @@ export default async function HomePage() {
 
           <div className="hero-left" style={{ position: "relative", maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
             <h1 style={{ ...archivo, fontSize: "clamp(34px, 4.6vw, 58px)", lineHeight: 1.02, letterSpacing: "-0.03em", margin: 0, color: CREAM }}>
-              La communauté n°1 pour apprendre la{" "}
+              Apprends à faire de la{" "}
               <span
                 style={{
                   display: "inline-block",
@@ -101,12 +101,12 @@ export default async function HomePage() {
                   padding: "0 12px 3px",
                 }}
               >
-                création de jeux
+                3D low poly
               </span>{" "}
-              en France.
+              pour tes jeux.
             </h1>
             <p style={{ maxWidth: 450, margin: "22px auto 0", lineHeight: 1.55, color: TEXT_MUTED }}>
-              Un seul parcours pour apprendre le gamedev, plutôt que des tutoriels épars.
+              De l&apos;idée à un asset animé, prêt pour ton moteur. Une formation complète, en paiement unique.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 26, justifyContent: "center" }}>
               <Link
@@ -126,10 +126,10 @@ export default async function HomePage() {
                 }}
               >
                 <TrendUpIcon size={16} />
-                Rejoins pour 20€/mois
+                Découvrir la formation
               </Link>
-              <Link href="/login" style={{ color: CREAM, border: `2px solid ${OUTLINE_GRAY}`, borderRadius: 10, padding: "13px 20px", ...archivo, fontSize: 14 }}>
-                Essayer gratuitement
+              <Link href="/roadmap" style={{ color: CREAM, border: `2px solid ${OUTLINE_GRAY}`, borderRadius: 10, padding: "13px 20px", ...archivo, fontSize: 14 }}>
+                Suivre la roadmap gratuite
               </Link>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default async function HomePage() {
 
       <CheckerDivider />
 
-      <ToolsGrid />
+      <CurriculumGrid />
       <PricingSection />
       <MembersSection />
       <SiteFooter />

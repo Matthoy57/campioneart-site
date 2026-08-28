@@ -138,9 +138,17 @@ export function GeneratorSections({
   const [genreDetailsOpen, setGenreDetailsOpen] = useState(false);
   const [styleDetailsOpen, setStyleDetailsOpen] = useState(false);
   const [themeDetailsOpen, setThemeDetailsOpen] = useState(false);
+  // JAM est public maintenant (voir conversation) : la sauvegarde reste réservée aux comptes
+  // (achat d'une formation). Sans ce suivi, "Sauvegarder" ouvrait la modale de nom puis échouait
+  // en silence à la confirmation — ici on prévient avant, pas après avoir fait saisir un nom.
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [saveBlockedMessage, setSaveBlockedMessage] = useState(false);
 
   useEffect(() => {
     loadArchives();
+    createClient()
+      .auth.getUser()
+      .then(({ data }) => setLoggedIn(!!data.user));
   }, []);
 
   async function loadArchives() {
@@ -167,6 +175,10 @@ export function GeneratorSections({
   }
 
   function openNaming() {
+    if (!loggedIn) {
+      setSaveBlockedMessage(true);
+      return;
+    }
     setNameInput("");
     setNamingOpen(true);
   }
@@ -309,6 +321,15 @@ export function GeneratorSections({
             {archives.length >= MAX_ARCHIVES && (
               <p style={{ fontSize: 12, color: "rgba(17,17,16,0.5)" }}>
                 Limite de {MAX_ARCHIVES} idées sauvegardées atteinte. Supprime-en une dans l&apos;historique pour en ajouter une nouvelle.
+              </p>
+            )}
+            {saveBlockedMessage && (
+              <p style={{ fontSize: 12, color: "rgba(17,17,16,0.6)", maxWidth: 280 }}>
+                La sauvegarde des idées est réservée aux personnes qui ont pris une formation.{" "}
+                <a href="/checkout" style={{ textDecoration: "underline" }}>
+                  Voir les formations
+                </a>
+                .
               </p>
             )}
           </div>

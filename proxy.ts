@@ -1,9 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-// Chemins des outils privés, à plat (pas de préfixe /outils) : ajouter une entrée ici à chaque
-// nouvel outil pour qu'il soit protégé par la connexion.
-const PROTECTED_PATHS = ["/game-jam", "/dashboard", "/settings"];
+// Chemins réservés aux comptes (achat effectué) : /game-jam et /roadmap sont volontairement
+// publics (points d'entrée gratuits, voir conversation) — seule l'action d'enregistrer dans JAM
+// exige un compte, gérée dans GeneratorSections directement, pas ici.
+const PROTECTED_PATHS = ["/dashboard", "/settings"];
 
 // Un cookie de session corrompu (ex. après un rafraîchissement interrompu par un déploiement) peut
 // faire tourner getUser() dans le vide au lieu d'échouer proprement — vu en prod : la fonction
@@ -53,5 +54,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/game-jam/:path*", "/dashboard/:path*", "/settings/:path*", "/login", "/"],
+  matcher: ["/game-jam/:path*", "/roadmap/:path*", "/dashboard/:path*", "/settings/:path*", "/login", "/"],
 };

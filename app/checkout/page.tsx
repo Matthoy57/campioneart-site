@@ -15,7 +15,7 @@ export default function CheckoutPage() {
         <span className="rounded-full bg-[var(--jam-btn-bg-soft)] px-2.5 py-1 text-xs font-bold leading-none text-[var(--jam-text-dim)]">Bientôt</span>
       </div>
       <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--jam-text-dim)]">
-        L&apos;abonnement à 20€/mois n&apos;est pas encore ouvert. Reviens bientôt !
+        La formation n&apos;est pas encore ouverte à l&apos;achat. Reviens bientôt !
       </p>
       <Link
         href="/"

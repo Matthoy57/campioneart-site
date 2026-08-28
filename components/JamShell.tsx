@@ -6,13 +6,14 @@ import { usePathname } from "next/navigation";
 import { DoorIcon, GearIcon, BurgerIcon, CloseIcon } from "./icons";
 import { createClient } from "@/lib/supabase/client";
 import { DEFAULT_PSEUDO, PSEUDO_UPDATE_EVENT, fallbackPseudoFromUser } from "@/content/profile";
-import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, GOLD, TEXT_DIM, TEXT_FAINT, PlatformStyles } from "./platformTheme";
+import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, GOLD, GREEN, TEXT_DIM, TEXT_FAINT, PlatformStyles } from "./platformTheme";
 
-// Roadmap/Guides/Breakdown retirés (offre du site en cours de refonte, voir conversation) : ne
-// reste que l'outil gratuit existant. Liste à plat, plus de groupement "parcours + outils" — ce
-// découpage n'a plus de sens avec un seul outil.
-const NAV_ITEMS = [
-  { href: "/dashboard", label: "Accueil", icon: "🐦‍🔥", accent: CREAM },
+// Roadmap et JAM sont maintenant publics (voir conversation) : cette coquille enveloppe aussi bien
+// des visiteurs anonymes que des acheteurs, d'où "Accueil" résolu dynamiquement dans le composant
+// (vers la vraie page d'accueil publique tant qu'il n'y a pas de compte, vers /dashboard une fois
+// acheté) plutôt qu'une liste statique.
+const TOOL_NAV_ITEMS = [
+  { href: "/roadmap", label: "Roadmap", icon: "🗺️", accent: GREEN },
   { href: "/game-jam", label: "JAM", icon: "🍯", accent: GOLD },
 ];
 
@@ -165,14 +166,15 @@ export function JamShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex flex-1 flex-col gap-1.5 overflow-y-auto">
-          {NAV_ITEMS.map((item) => (
+          <NavRow href={loggedIn ? "/dashboard" : "/"} label="Accueil" icon="🐦‍🔥" accent={CREAM} active={loggedIn ? pathname.startsWith("/dashboard") : pathname === "/"} />
+          {TOOL_NAV_ITEMS.map((item) => (
             <NavRow key={item.href} {...item} active={pathname.startsWith(item.href)} />
           ))}
         </nav>
 
         <div className="flex flex-col gap-2">
           <Link
-            href="/settings"
+            href={authChecked && !loggedIn ? "/login" : "/settings"}
             style={{
               display: "flex",
               alignItems: "center",
@@ -208,21 +210,25 @@ export function JamShell({ children }: { children: ReactNode }) {
             ) : (
               <>
                 <GearIcon size={14} />
-                <span style={{ fontSize: 13 }}>Paramètres</span>
+                <span style={{ fontSize: 13 }}>Se connecter</span>
               </>
             )}
           </Link>
 
-          <form action="/api/tools-logout" method="POST">
-            <button
-              type="submit"
-              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-3.5 py-2.5 text-sm"
-              style={{ color: TEXT_FAINT, ...archivo, fontSize: 12 }}
-            >
-              <DoorIcon size={16} />
-              SE DÉCONNECTER
-            </button>
-          </form>
+          {/* Visiteur anonyme sur une page publique (Roadmap/JAM) : rien à déconnecter, le
+              bouton n'a de sens qu'une fois un compte confirmé. */}
+          {authChecked && loggedIn && (
+            <form action="/api/tools-logout" method="POST">
+              <button
+                type="submit"
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-3.5 py-2.5 text-sm"
+                style={{ color: TEXT_FAINT, ...archivo, fontSize: 12 }}
+              >
+                <DoorIcon size={16} />
+                SE DÉCONNECTER
+              </button>
+            </form>
+          )}
         </div>
       </aside>
 
