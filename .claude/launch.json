@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "campioneart-dev",
+      "runtimeExecutable": "D:\\applications\\node.exe",
+      "runtimeArgs": [
+        "D:\\MonSite\\campioneart-site\\node_modules\\next\\dist\\bin\\next",
+        "dev",
+        "D:\\MonSite\\campioneart-site"
+      ],
+      "port": 3000
+    }
+  ]
+}

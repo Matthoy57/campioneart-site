@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ===== Design tokens ===== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-body: var(--font-hanken-grotesk);
+  --font-mono-label: var(--font-space-mono);
+  --font-heading: var(--font-poppins);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  color: #0a0a0a;
+}
+
+/* Titres et nom de la marque en Poppins (--font-heading) : duo avec Hanken Grotesk pour le reste
+   du texte. Les classes ".brand-font" ciblent les endroits où "Nom de la plateforme" n'est pas
+   un titre sémantique (nav, sidebar) mais doit avoir le même traitement. */
+h1,
+h2,
+h3,
+.brand-font {
+  font-family: var(--font-heading);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::selection {
+  background: #ff0000;
+  color: #fff;
+}
+
+/* ===== Feedback de tirage (générateur JAM) ===== */
+@keyframes slot-bounce {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.07);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.slot-bounce {
+  animation: slot-bounce 0.45s ease;
+}
+@keyframes confetti-burst {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+.confetti-particle {
+  animation: confetti-burst 0.7s ease-out forwards;
+}
+
+/* ===== Outil JAM : blanc + accent rouge (couleur de marque) ===== */
+.jam-root {
+  --jam-bg: #ffffff;
+  --jam-surface: #ffffff;
+  --jam-surface-alt: #f7f7f8;
+  --jam-border: rgba(10, 10, 10, 0.09);
+  --jam-text: #0a0a0a;
+  --jam-text-dim: rgba(10, 10, 10, 0.55);
+  --jam-text-faint: rgba(10, 10, 10, 0.35);
+  --jam-btn-bg: #ff0000;
+  --jam-btn-text: #ffffff;
+  --jam-btn-bg-soft: rgba(10, 10, 10, 0.06);
+  --jam-btn-bg-soft-hover: rgba(10, 10, 10, 0.1);
+  --jam-tile-bg: rgba(10, 10, 10, 0.035);
+  --jam-tile-bg-filled: rgba(10, 10, 10, 0.045);
+  --jam-icon-bg: rgba(10, 10, 10, 0.06);
+  --jam-shadow: 0 1px 2px rgba(10, 10, 10, 0.04), 0 10px 28px rgba(10, 10, 10, 0.05);
+  color-scheme: light;
 }
