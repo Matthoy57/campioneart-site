@@ -6,22 +6,17 @@ import { usePathname } from "next/navigation";
 import { DoorIcon, GearIcon, BurgerIcon, CloseIcon } from "./icons";
 import { createClient } from "@/lib/supabase/client";
 import { DEFAULT_PSEUDO, PSEUDO_UPDATE_EVENT, fallbackPseudoFromUser } from "@/content/profile";
-import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, GOLD, BLUE, ORANGE, TEXT_DIM, TEXT_FAINT, PlatformStyles } from "./platformTheme";
+import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, GOLD, TEXT_DIM, TEXT_FAINT, PlatformStyles } from "./platformTheme";
 
-// Accueil et Roadmap groupés en haut (le "chez toi" + le parcours qui l'organise), puis les 3
-// outils qui viennent en soutien de ce parcours, séparés par une bande discrète — matérialise en
-// nav le nouveau rôle de la plateforme : un parcours central, pas cinq outils à plat.
-const PRIMARY_ITEMS = [
+// Roadmap/Guides/Breakdown retirés (offre du site en cours de refonte, voir conversation) : ne
+// reste que l'outil gratuit existant. Liste à plat, plus de groupement "parcours + outils" — ce
+// découpage n'a plus de sens avec un seul outil.
+const NAV_ITEMS = [
   { href: "/dashboard", label: "Accueil", icon: "🐦‍🔥", accent: CREAM },
-  { href: "/roadmap", label: "Roadmap", icon: "🗺️", accent: LIME, flagship: true },
-];
-const TOOL_ITEMS = [
   { href: "/game-jam", label: "JAM", icon: "🍯", accent: GOLD },
-  { href: "/skill-vault", label: "Guides", icon: "🗝️", accent: BLUE },
-  { href: "/mechanic-breakdown", label: "Breakdown", icon: "🛠️", accent: ORANGE },
 ];
 
-function NavRow({ href, label, icon, accent, active, flagship }: { href: string; label: string; icon: string; accent: string; active: boolean; flagship?: boolean }) {
+function NavRow({ href, label, icon, accent, active }: { href: string; label: string; icon: string; accent: string; active: boolean }) {
   return (
     <Link
       href={href}
@@ -56,11 +51,6 @@ function NavRow({ href, label, icon, accent, active, flagship }: { href: string;
         {icon}
       </span>
       <span style={{ ...archivo, fontSize: 14, letterSpacing: "0.01em" }}>{label}</span>
-      {flagship && !active && (
-        <span aria-hidden style={{ marginLeft: "auto", color: LIME, fontSize: 12 }}>
-          ★
-        </span>
-      )}
     </Link>
   );
 }
@@ -175,14 +165,7 @@ export function JamShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex flex-1 flex-col gap-1.5 overflow-y-auto">
-          {PRIMARY_ITEMS.map((item) => (
-            <NavRow key={item.href} {...item} active={pathname.startsWith(item.href)} />
-          ))}
-
-          <div style={{ margin: "10px 4px", height: 2, background: "rgba(245,242,234,0.12)" }} />
-          <span style={{ ...archivo, fontSize: 10, letterSpacing: "0.08em", color: TEXT_FAINT, padding: "0 12px 4px" }}>OUTILS</span>
-
-          {TOOL_ITEMS.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <NavRow key={item.href} {...item} active={pathname.startsWith(item.href)} />
           ))}
         </nav>

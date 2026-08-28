@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 
 // Chemins des outils privés, à plat (pas de préfixe /outils) : ajouter une entrée ici à chaque
 // nouvel outil pour qu'il soit protégé par la connexion.
-const PROTECTED_PATHS = ["/game-jam", "/skill-vault", "/mechanic-breakdown", "/dashboard", "/settings", "/roadmap"];
+const PROTECTED_PATHS = ["/game-jam", "/dashboard", "/settings"];
 
 // Un cookie de session corrompu (ex. après un rafraîchissement interrompu par un déploiement) peut
 // faire tourner getUser() dans le vide au lieu d'échouer proprement — vu en prod : la fonction
@@ -53,14 +53,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/game-jam/:path*",
-    "/skill-vault/:path*",
-    "/mechanic-breakdown/:path*",
-    "/dashboard/:path*",
-    "/settings/:path*",
-    "/roadmap/:path*",
-    "/login",
-    "/",
-  ],
+  matcher: ["/game-jam/:path*", "/dashboard/:path*", "/settings/:path*", "/login", "/"],
 };
