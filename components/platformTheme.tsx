@@ -73,6 +73,16 @@ export function CheckerDivider() {
   return <div style={{ height: 100, backgroundColor: CREAM, backgroundImage: `repeating-conic-gradient(#111110 0% 25%, ${CREAM} 0% 50%)`, backgroundSize: "40px 40px" }} />;
 }
 
+// Version fine du damier (2 carrés de haut), utilisée par PersonaShell juste avant le footer discret
+// de la partie connectée — repris tel quel ici pour que la homepage puisse reproduire exactement le
+// même damier au même endroit. Un tile de taille N rend en réalité un sous-damier 2×2, donc la
+// taille VISIBLE d'un carré est N/2 : `tile` est calculé en conséquence plutôt que fixé à l'oeil.
+export function ThinChecker() {
+  const visibleSquare = 10;
+  const tile = visibleSquare * 2;
+  return <div style={{ height: 20, backgroundColor: CREAM, backgroundImage: `repeating-conic-gradient(#111110 0% 25%, ${CREAM} 0% 50%)`, backgroundSize: `${tile}px ${tile}px` }} />;
+}
+
 // Styles globaux du thème (hover des boutons deux-tons, marquee, responsive) — un seul <style> à
 // poser une fois dans page.tsx, sous la classe "platform-theme" qui doit englober toute la page.
 export function PlatformStyles() {

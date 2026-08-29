@@ -19,7 +19,7 @@ const ITEMS = [
 export function CircularNavMenu({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [open, setOpen] = useState(false);
 
-  const items = [...ITEMS, { label: isAuthenticated ? "MON PROFIL" : "SE CONNECTER", href: isAuthenticated ? "/settings" : "/login", x: -112, y: 92, rotate: -3 }];
+  const items = [...ITEMS, { label: isAuthenticated ? "MES FORMATIONS" : "SE CONNECTER", href: isAuthenticated ? "/dashboard" : "/login", x: -112, y: 92, rotate: -3 }];
 
   // Coins opposés coupés en biseau : effet "tag/ticket comics" plutôt qu'un simple rectangle.
   const cutClip = "polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px)";

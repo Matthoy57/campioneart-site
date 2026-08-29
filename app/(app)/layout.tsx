@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
-import { JamShell } from "@/components/JamShell";
+import { PersonaShell } from "@/components/PersonaShell";
 
-// Layout partagé par tous les outils protégés (dashboard, JAM, Skill Vault, Breakdown, YouTube
-// Quest, Settings) : contrairement à un <JamShell> répété dans chaque page, un vrai layout reste
-// monté d'une page à l'autre en navigation client — plus de "pop" de l'avatar/profil à chaque
-// changement de page pendant que sa requête Supabase se refait.
+// Layout partagé par toutes les pages protégées (dashboard, JAM, settings) : un vrai layout reste
+// monté d'une page à l'autre en navigation client, contrairement à un shell répété dans chaque
+// page. PersonaShell remplace l'ancien JamShell (sidebar) — menu façon Persona, validé sur /test
+// avant d'être promu ici (voir la conversation).
 export default function AppLayout({ children }: { children: ReactNode }) {
-  return <JamShell>{children}</JamShell>;
+  return <PersonaShell>{children}</PersonaShell>;
 }

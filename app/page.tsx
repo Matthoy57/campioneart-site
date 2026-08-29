@@ -8,7 +8,7 @@ import { FloatingEmoji } from "@/components/FloatingEmoji";
 import { CircularNavMenu } from "@/components/CircularNavMenu";
 import { TrendUpIcon } from "@/components/icons";
 import { createClient } from "@/lib/supabase/server";
-import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, TEXT_MUTED, OUTLINE_GRAY, GridBackdrop, CheckerDivider, PlatformStyles, twoTone } from "@/components/platformTheme";
+import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, TEXT_MUTED, GridBackdrop, CheckerDivider, ThinChecker, PlatformStyles, twoTone } from "@/components/platformTheme";
 
 // En haut du site, la banderole est la toute première chose lue : mélange de noms d'outils et de
 // promesses courtes plutôt qu'une simple répétition des 4 outils, pour que ça reste intéressant à
@@ -63,16 +63,6 @@ export default async function HomePage() {
             <div style={{ width: 14, height: 14, background: "#111110", borderRadius: 3 }} />
             <span style={{ ...archivo, fontSize: 14, letterSpacing: "-0.02em" }}>PLATEFORME</span>
           </div>
-
-          <div style={{ flex: 1 }} />
-
-          <Link
-            href={user ? "/settings" : "/login"}
-            className="two-tone-btn"
-            style={{ ...twoTone(CREAM, LIME), color: "#111110", border: "2px solid #111110", borderRadius: 10, padding: "10px 16px", ...archivo, fontSize: 13 }}
-          >
-            {user ? "MON PROFIL" : "SE CONNECTER"}
-          </Link>
         </header>
 
         <div className="hero-grid" style={{ position: "relative", maxWidth: 1300, margin: "0 auto", paddingTop: 100, paddingBottom: 30 }}>
@@ -128,9 +118,6 @@ export default async function HomePage() {
                 <TrendUpIcon size={16} />
                 Découvrir la formation
               </Link>
-              <Link href="/roadmap" style={{ color: CREAM, border: `2px solid ${OUTLINE_GRAY}`, borderRadius: 10, padding: "13px 20px", ...archivo, fontSize: 14 }}>
-                Suivre la roadmap gratuite
-              </Link>
             </div>
           </div>
         </div>
@@ -141,6 +128,40 @@ export default async function HomePage() {
       <CurriculumGrid />
       <PricingSection />
       <MembersSection />
+
+      {/* ===== CTA de clôture : fond foncé + grille, dans l'esprit du hero, avant le footer ===== */}
+      <section style={{ position: "relative", background: BG, padding: "80px 24px", textAlign: "center", overflow: "hidden" }}>
+        <GridBackdrop />
+        <div style={{ position: "relative", maxWidth: 560, margin: "0 auto" }}>
+          <h2 style={{ ...archivo, fontSize: "clamp(24px, 3vw, 34px)", letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 14px", color: CREAM }}>
+            Prêt à te lancer ?
+          </h2>
+          <p style={{ margin: "0 0 28px", fontSize: 15, lineHeight: 1.5, color: TEXT_MUTED }}>
+            Un seul paiement, la formation complète, à toi pour toujours.
+          </p>
+          <Link
+            href="/checkout"
+            className="two-tone-btn"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              ...twoTone(LIME, CREAM),
+              color: "#111110",
+              border: "2px solid #111110",
+              borderRadius: 10,
+              padding: "14px 22px",
+              ...archivo,
+              fontSize: 14,
+            }}
+          >
+            <TrendUpIcon size={16} />
+            Découvrir la formation
+          </Link>
+        </div>
+      </section>
+
+      <ThinChecker />
       <SiteFooter />
     </div>
   );

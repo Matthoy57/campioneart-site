@@ -4,8 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { DiscordIcon } from "./icons";
-
-const RED = "#FF0000";
+import { archivo, mono, CREAM, LIME, TEXT_DIM, TEXT_FAINT, twoTone } from "@/components/platformTheme";
 
 interface Identity {
   id: string;
@@ -78,31 +77,33 @@ function AccountLinkingInner() {
   }
 
   return (
-    <div className="flex w-full max-w-xs flex-col gap-3 rounded-2xl border border-[var(--jam-border)] bg-[var(--jam-surface)] p-6 text-left">
-      <span className="text-xs font-bold tracking-wide text-[var(--jam-text-faint)] uppercase">Méthodes de connexion</span>
+    <div
+      className="flex w-full max-w-xs flex-col gap-3 text-left"
+      style={{ background: "rgba(245,242,234,0.03)", border: "3px solid #111110", borderRadius: 16, padding: 20, boxShadow: `5px 5px 0 rgba(245,242,234,0.12)` }}
+    >
+      <span style={{ ...mono, fontSize: 11, letterSpacing: "0.08em", color: TEXT_FAINT }} className="uppercase">
+        Méthodes de connexion
+      </span>
 
-      <div className="flex items-center justify-between rounded-lg bg-[var(--jam-surface-alt)] px-3 py-2.5">
-        <span className="text-sm font-semibold text-[var(--jam-text)]">Email / mot de passe</span>
-        <span className="text-xs font-bold" style={{ color: emailIdentity ? "#22c55e" : "var(--jam-text-faint)" }}>
-          {emailIdentity ? "Connecté" : "Non connecté"}
-        </span>
+      <div className="flex items-center justify-between rounded-lg px-3 py-2.5" style={{ background: "#111110" }}>
+        <span style={{ ...archivo, fontSize: 13, color: CREAM }}>Email / mot de passe</span>
+        <span style={{ ...archivo, fontSize: 11, color: emailIdentity ? "#22c55e" : TEXT_FAINT }}>{emailIdentity ? "Connecté" : "Non connecté"}</span>
       </div>
 
-      <div className="flex items-center justify-between rounded-lg bg-[var(--jam-surface-alt)] px-3 py-2.5">
-        <span className="flex items-center gap-2 text-sm font-semibold text-[var(--jam-text)]">
+      <div className="flex items-center justify-between rounded-lg px-3 py-2.5" style={{ background: "#111110" }}>
+        <span className="flex items-center gap-2" style={{ ...archivo, fontSize: 13, color: CREAM }}>
           <DiscordIcon size={14} />
           Discord
         </span>
-        <span className="text-xs font-bold" style={{ color: discordIdentity ? "#22c55e" : "var(--jam-text-faint)" }}>
-          {discordIdentity ? "Connecté" : "Non connecté"}
-        </span>
+        <span style={{ ...archivo, fontSize: 11, color: discordIdentity ? "#22c55e" : TEXT_FAINT }}>{discordIdentity ? "Connecté" : "Non connecté"}</span>
       </div>
 
       {!discordIdentity && (
         <button
           onClick={linkDiscord}
           disabled={linking}
-          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#5865F2] text-sm font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-95 disabled:cursor-default disabled:opacity-60"
+          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-95 disabled:cursor-default disabled:opacity-60"
+          style={{ backgroundColor: "#5865F2" }}
         >
           <DiscordIcon size={16} />
           {linking ? "Redirection…" : "Connecter Discord"}
@@ -113,24 +114,27 @@ function AccountLinkingInner() {
         <button
           onClick={unlinkDiscord}
           disabled={unlinking}
-          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[var(--jam-btn-bg-soft)] text-sm font-bold text-[var(--jam-text-dim)] transition-colors hover:bg-[var(--jam-btn-bg-soft-hover)] disabled:cursor-default disabled:opacity-60"
+          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl transition-colors disabled:cursor-default disabled:opacity-60"
+          style={{ background: "rgba(245,242,234,0.08)", color: TEXT_DIM, ...archivo, fontSize: 13 }}
         >
           {unlinking ? "Déconnexion…" : "Déconnecter Discord"}
         </button>
       )}
       {discordIdentity && !emailIdentity && (
-        <p className="text-xs text-[var(--jam-text-faint)]">
+        <p style={{ fontSize: 12, color: TEXT_FAINT }}>
           Ajoute d&apos;abord un email + mot de passe ci-dessous pour pouvoir déconnecter Discord sans te retrouver bloqué hors de ton compte.
         </p>
       )}
 
-      {linkError && <span className="text-[13px] font-bold text-red-600">{linkError}</span>}
+      {linkError && (
+        <span style={{ fontSize: 13, fontWeight: 700, color: "#FF6B6B" }}>{linkError}</span>
+      )}
 
       {!emailIdentity && (
         <Link
           href="/login?mode=link-email"
-          style={{ backgroundColor: RED, color: "#fff" }}
-          className="flex h-10 cursor-pointer items-center justify-center rounded-xl text-sm font-bold transition-transform duration-150 hover:scale-[1.02] active:scale-95"
+          className="two-tone-btn flex h-10 cursor-pointer items-center justify-center rounded-xl"
+          style={{ ...twoTone(LIME, CREAM), color: "#111110", border: "2px solid #111110", ...archivo, fontSize: 13 }}
         >
           Ajouter un email + mot de passe
         </Link>
