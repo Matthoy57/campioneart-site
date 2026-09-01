@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "campioneart-dev",
-      "runtimeExecutable": "D:\\applications\\node.exe",
+      "runtimeExecutable": "D:\\Applications\\NodeJs\\node.exe",
       "runtimeArgs": [
         "D:\\MonSite\\campioneart-site\\node_modules\\next\\dist\\bin\\next",
         "dev",

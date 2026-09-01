@@ -72,7 +72,7 @@ function ConfirmInner() {
   }, []);
 
   return (
-    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 text-center font-[family-name:var(--font-hanken-grotesk)] text-[var(--jam-text)]">
+    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 text-center font-[family-name:var(--font-grotesk)] text-[var(--jam-text)]">
       <Link href="/" className="brand-font mb-8 text-[15px] font-extrabold tracking-tight">
         Nom de la plateforme
       </Link>

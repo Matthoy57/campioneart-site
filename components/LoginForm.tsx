@@ -5,26 +5,48 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { EyeIcon, EyeOffIcon, DiscordIcon } from "@/components/icons";
-
-const RED = "#FF0000";
+import { archivo, mono, BG, CREAM, LIME, TEXT_DIM, TEXT_FAINT, GridBackdrop, PlatformStyles, twoTone } from "@/components/platformTheme";
 
 function PasswordInput({ value, onChange, autoFocus }: { value: string; onChange: (v: string) => void; autoFocus?: boolean }) {
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className="relative">
+    <div style={{ position: "relative" }}>
       <input
         type={visible ? "text" : "password"}
         autoFocus={autoFocus}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-[var(--jam-border)] bg-[var(--jam-surface-alt)] px-3.5 py-2.5 pr-10 text-sm text-[var(--jam-text)] focus:outline-none"
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          border: "2px solid #111110",
+          background: "rgba(245,242,234,0.06)",
+          padding: "10px 40px 10px 14px",
+          fontSize: 14,
+          color: CREAM,
+          outline: "none",
+        }}
       />
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
         aria-label={visible ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-        className="absolute top-1/2 right-2.5 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center text-[var(--jam-text-faint)] transition-colors hover:text-[var(--jam-text-dim)]"
+        style={{
+          position: "absolute",
+          top: "50%",
+          right: 10,
+          transform: "translateY(-50%)",
+          display: "flex",
+          height: 24,
+          width: 24,
+          cursor: "pointer",
+          alignItems: "center",
+          justifyContent: "center",
+          color: TEXT_FAINT,
+          background: "none",
+          border: "none",
+        }}
       >
         {visible ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
       </button>
@@ -181,35 +203,78 @@ function LoginFormInner() {
     }
   }
 
+  const labelStyle: React.CSSProperties = { ...mono, fontSize: 11, letterSpacing: "0.08em", color: TEXT_FAINT, marginBottom: 4, display: "block" };
+
   return (
-    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 font-[family-name:var(--font-hanken-grotesk)] text-[var(--jam-text)]">
-      <Link href="/" className="brand-font mb-8 text-[15px] font-extrabold tracking-tight">
+    <div
+      className="platform-theme"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        background: BG,
+        color: CREAM,
+        fontFamily: "var(--font-grotesk)",
+        padding: "24px",
+      }}
+    >
+      <PlatformStyles />
+      <GridBackdrop />
+
+      <Link href="/" style={{ position: "relative", ...archivo, fontSize: 15, color: CREAM, marginBottom: 28 }}>
         Nom de la plateforme
       </Link>
 
       <div
-        className="w-full max-w-sm rounded-2xl border border-[var(--jam-border)] bg-[var(--jam-surface)] p-6"
-        style={{ boxShadow: "var(--jam-shadow)" }}
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: 380,
+          borderRadius: 20,
+          background: "#1c1c19",
+          border: "3px solid #111110",
+          boxShadow: `6px 6px 0 ${LIME}`,
+          padding: 24,
+        }}
       >
         {linkAccount ? (
-          <p className="mb-5 text-center text-sm font-bold text-[var(--jam-text)]">Ajouter un email à ton compte</p>
+          <p style={{ ...archivo, fontSize: 15, color: CREAM, textAlign: "center", marginBottom: 20 }}>Ajouter un email à ton compte</p>
         ) : (
-          <div className="mb-5 flex justify-center gap-1 rounded-2xl bg-[var(--jam-btn-bg-soft)] p-1">
+          <div style={{ display: "flex", gap: 4, marginBottom: 20, borderRadius: 12, background: "rgba(245,242,234,0.06)", padding: 4 }}>
             <button
               type="button"
               onClick={() => switchMode("signin")}
-              className={`flex-1 cursor-pointer rounded-xl py-2 text-sm font-bold transition-colors ${
-                mode === "signin" ? "bg-[var(--jam-surface)] text-[var(--jam-text)] shadow-sm" : "text-[var(--jam-text-faint)]"
-              }`}
+              style={{
+                flex: 1,
+                cursor: "pointer",
+                borderRadius: 9,
+                padding: "9px 0",
+                fontSize: 13,
+                border: "none",
+                ...archivo,
+                background: mode === "signin" ? LIME : "transparent",
+                color: mode === "signin" ? "#111110" : TEXT_FAINT,
+              }}
             >
               Connexion
             </button>
             <button
               type="button"
               onClick={() => switchMode("signup")}
-              className={`flex-1 cursor-pointer rounded-xl py-2 text-sm font-bold transition-colors ${
-                mode === "signup" ? "bg-[var(--jam-surface)] text-[var(--jam-text)] shadow-sm" : "text-[var(--jam-text-faint)]"
-              }`}
+              style={{
+                flex: 1,
+                cursor: "pointer",
+                borderRadius: 9,
+                padding: "9px 0",
+                fontSize: 13,
+                border: "none",
+                ...archivo,
+                background: mode === "signup" ? LIME : "transparent",
+                color: mode === "signup" ? "#111110" : TEXT_FAINT,
+              }}
             >
               Créer un compte
             </button>
@@ -218,7 +283,9 @@ function LoginFormInner() {
 
         <form className="flex flex-col gap-3.5" onSubmit={onSubmit}>
           <div>
-            <label className="mb-1 block text-[11px] font-bold tracking-wide text-[var(--jam-text-faint)] uppercase">Email</label>
+            <label style={labelStyle} className="uppercase">
+              Email
+            </label>
             <input
               type="email"
               autoFocus
@@ -227,18 +294,29 @@ function LoginFormInner() {
                 setEmail(e.target.value);
                 setError("");
               }}
-              className="w-full rounded-xl border border-[var(--jam-border)] bg-[var(--jam-surface-alt)] px-3.5 py-2.5 text-sm text-[var(--jam-text)] focus:outline-none"
+              style={{
+                width: "100%",
+                borderRadius: 10,
+                border: "2px solid #111110",
+                background: "rgba(245,242,234,0.06)",
+                padding: "10px 14px",
+                fontSize: 14,
+                color: CREAM,
+                outline: "none",
+              }}
             />
           </div>
           <div>
-            <div className="mb-1 flex items-center justify-between">
-              <label className="block text-[11px] font-bold tracking-wide text-[var(--jam-text-faint)] uppercase">Mot de passe</label>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+              <label style={{ ...labelStyle, marginBottom: 0 }} className="uppercase">
+                Mot de passe
+              </label>
               {mode === "signin" && (
                 <button
                   type="button"
                   onClick={onForgotPassword}
                   disabled={forgotSubmitting}
-                  className="cursor-pointer text-[11px] font-semibold text-[var(--jam-text-faint)] hover:text-[var(--jam-text-dim)] disabled:cursor-default"
+                  style={{ cursor: "pointer", fontSize: 11, fontWeight: 700, color: TEXT_FAINT, background: "none", border: "none" }}
                 >
                   {forgotSubmitting ? "Envoi…" : "Mot de passe oublié ?"}
                 </button>
@@ -255,7 +333,7 @@ function LoginFormInner() {
 
           {mode === "signup" && (
             <div>
-              <label className="mb-1 block text-[11px] font-bold tracking-wide text-[var(--jam-text-faint)] uppercase">
+              <label style={labelStyle} className="uppercase">
                 Confirmer le mot de passe
               </label>
               <PasswordInput
@@ -268,13 +346,27 @@ function LoginFormInner() {
             </div>
           )}
 
-          {error && <span className="block text-[13px] font-bold text-red-600">{error}</span>}
-          {info && <span className="block text-[13px] font-bold text-green-600">{info}</span>}
+          {error && <span style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#FF6B6B" }}>{error}</span>}
+          {info && <span style={{ display: "block", fontSize: 13, fontWeight: 700, color: "#22c55e" }}>{info}</span>}
 
           <button
             type="submit"
-            style={{ backgroundColor: RED, color: "#fff" }}
-            className="mt-1 flex h-10 cursor-pointer items-center justify-center rounded-xl text-sm font-bold transition-transform duration-150 hover:scale-[1.02] active:scale-95 disabled:cursor-default disabled:opacity-40 disabled:hover:scale-100"
+            className="two-tone-btn"
+            style={{
+              marginTop: 4,
+              display: "flex",
+              height: 42,
+              cursor: submitting || !email || !password || (mode === "signup" && !passwordConfirm) ? "default" : "pointer",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 10,
+              border: "2px solid #111110",
+              fontSize: 14,
+              ...archivo,
+              opacity: submitting || !email || !password || (mode === "signup" && !passwordConfirm) ? 0.4 : 1,
+              ...twoTone(LIME, CREAM),
+              color: "#111110",
+            }}
             disabled={submitting || !email || !password || (mode === "signup" && !passwordConfirm)}
           >
             {submitting ? "Vérification…" : linkAccount ? "Ajouter" : mode === "signin" ? "Entrer" : "Créer mon compte"}
@@ -282,22 +374,37 @@ function LoginFormInner() {
         </form>
 
         {linkAccount ? (
-          <Link href="/settings" className="mt-4 block text-center text-[13px] font-semibold text-[var(--jam-text-faint)] hover:text-[var(--jam-text-dim)]">
+          <Link href="/settings" style={{ marginTop: 16, display: "block", textAlign: "center", fontSize: 13, fontWeight: 600, color: TEXT_FAINT }}>
             ← Retour aux paramètres
           </Link>
         ) : (
           <>
-            <div className="my-4 flex items-center gap-3 text-[11px] font-bold tracking-wide text-[var(--jam-text-faint)] uppercase">
-              <span className="h-px flex-1 bg-[var(--jam-border)]" />
+            <div style={{ margin: "16px 0", display: "flex", alignItems: "center", gap: 12, fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: TEXT_FAINT }} className="uppercase">
+              <span style={{ height: 1, flex: 1, background: "rgba(245,242,234,0.15)" }} />
               ou
-              <span className="h-px flex-1 bg-[var(--jam-border)]" />
+              <span style={{ height: 1, flex: 1, background: "rgba(245,242,234,0.15)" }} />
             </div>
 
             <button
               type="button"
               onClick={onDiscordLogin}
               disabled={oauthLoading}
-              className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#5865F2] text-sm font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-95 disabled:cursor-default disabled:opacity-60 disabled:hover:scale-100"
+              style={{
+                display: "flex",
+                height: 42,
+                width: "100%",
+                cursor: oauthLoading ? "default" : "pointer",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                borderRadius: 10,
+                border: "none",
+                background: "#5865F2",
+                fontSize: 14,
+                fontWeight: 700,
+                color: "#fff",
+                opacity: oauthLoading ? 0.6 : 1,
+              }}
             >
               <DiscordIcon size={17} />
               Continuer avec Discord
@@ -305,6 +412,10 @@ function LoginFormInner() {
           </>
         )}
       </div>
+
+      <p style={{ position: "relative", marginTop: 20, fontSize: 12, color: TEXT_DIM, textAlign: "center" }}>
+        <span style={mono}>Aucun compte requis pour parcourir le site.</span>
+      </p>
     </div>
   );
 }

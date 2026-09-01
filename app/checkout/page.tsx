@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 py-24 text-center font-[family-name:var(--font-hanken-grotesk)] text-[var(--jam-text)]">
+    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 py-24 text-center font-[family-name:var(--font-grotesk)] text-[var(--jam-text)]">
       <span className="mb-5 text-5xl">💳</span>
       <div className="flex items-center gap-3">
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--jam-text)] sm:text-4xl">Paiement</h1>

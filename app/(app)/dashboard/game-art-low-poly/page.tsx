@@ -22,7 +22,11 @@ export default function GameArtLowPolyPage() {
 
   return (
     <main className="px-6 py-8">
-      <div className="mx-auto max-w-3xl">
+      {/* Passée de max-w-3xl à max-w-5xl : la page se voulait "plus haute", et comme le lecteur
+          vidéo garde un ratio 16/9 fixe, l'élargir est ce qui le fait grandir le plus — la
+          sidebar des modules et le texte de description, eux, ne gagnent presque rien en largeur
+          utile au-delà de md:w-56, donc c'est bien la vidéo qui absorbe l'essentiel du gain. */}
+      <div className="mx-auto max-w-5xl">
         <div style={{ marginBottom: 24 }}>
           <p style={{ ...archivo, fontSize: 22, color: CREAM, margin: 0 }}>Game Art Low Poly</p>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10, maxWidth: 300 }}>

@@ -1,14 +1,8 @@
-import { Archivo_Black, Space_Grotesk, Space_Mono } from "next/font/google";
-
 // Thème visuel partagé de la homepage — extrait de l'exploration "/test-visuel" une fois le style
 // validé, pour que app/page.tsx, ToolsGrid, PricingSection, MembersSection et SiteFooter partagent
-// les mêmes couleurs/polices/helpers plutôt que de les dupliquer dans chaque fichier. Les polices ne
-// sont chargées qu'ici (pas dans app/layout.tsx) : seule la homepage applique leur `.variable` sur
-// sa racine, donc elles n'affectent aucune autre page du site.
-export const archivoBlack = Archivo_Black({ variable: "--font-archivo", weight: "400", subsets: ["latin"] });
-export const spaceGrotesk = Space_Grotesk({ variable: "--font-grotesk", weight: ["400", "500", "700"], subsets: ["latin"] });
-export const spaceMono = Space_Mono({ variable: "--font-mono", weight: ["400", "700"], subsets: ["latin"] });
-
+// les mêmes couleurs/polices/helpers plutôt que de les dupliquer dans chaque fichier. Les polices
+// (Poppins + Space Grotesk) sont chargées une seule fois dans app/layout.tsx et exposées en CSS
+// variables globales — `archivo`/`mono` ci-dessous ne font que les référencer, pas les charger.
 export const BG = "#111110";
 export const CREAM = "#F5F2EA";
 export const LIME = "#C6F702";
@@ -29,8 +23,11 @@ export const RED_PINK = "#FF3D6E";
 export const MONO_MUTED = "#6E6B62";
 export const OUTLINE_GRAY = "#4A4A45";
 
-export const archivo = { fontFamily: "var(--font-archivo)" };
-export const mono = { fontFamily: "var(--font-mono)" };
+// Deux polices seulement sur tout le site : Poppins pour les titres/emphases ("archivo", nom
+// conservé pour éviter de toucher tous les appelants), Space Grotesk pour le corps de texte ET les
+// petits labels uppercase ("mono") — il n'y a plus de vraie police à chasse fixe.
+export const archivo = { fontFamily: "var(--font-poppins)" };
+export const mono = { fontFamily: "var(--font-grotesk)" };
 
 // Halo blanc+noir derrière un emoji géant en illustration (repris tel quel de ToolsGrid) : le rend
 // lisible sur n'importe quel fond coloré plein, façon sticker, plutôt qu'un emoji "posé à plat".

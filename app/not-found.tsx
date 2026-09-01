@@ -4,10 +4,10 @@ const RED = "#FF0000";
 
 export default function NotFound() {
   return (
-    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 text-center font-[family-name:var(--font-hanken-grotesk)] text-[var(--jam-text)]">
+    <div className="jam-root flex min-h-screen flex-col items-center justify-center bg-[var(--jam-bg)] px-6 text-center font-[family-name:var(--font-grotesk)] text-[var(--jam-text)]">
       <span
         style={{ backgroundColor: RED, color: "#fff" }}
-        className="mb-5 inline-block rounded-full px-3 py-1 font-[family-name:var(--font-mono-label)] text-xs font-bold tracking-[3px] uppercase"
+        className="mb-5 inline-block rounded-full px-3 py-1 font-[family-name:var(--font-grotesk)] text-xs font-bold tracking-[3px] uppercase"
       >
         Game over
       </span>

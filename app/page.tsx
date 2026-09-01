@@ -8,7 +8,7 @@ import { FloatingEmoji } from "@/components/FloatingEmoji";
 import { CircularNavMenu } from "@/components/CircularNavMenu";
 import { TrendUpIcon } from "@/components/icons";
 import { createClient } from "@/lib/supabase/server";
-import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, TEXT_MUTED, GridBackdrop, CheckerDivider, ThinChecker, PlatformStyles, twoTone } from "@/components/platformTheme";
+import { archivo, BG, CREAM, LIME, TEXT_MUTED, GridBackdrop, CheckerDivider, ThinChecker, PlatformStyles, twoTone } from "@/components/platformTheme";
 
 // En haut du site, la banderole est la toute première chose lue : mélange de noms d'outils et de
 // promesses courtes plutôt qu'une simple répétition des 4 outils, pour que ça reste intéressant à
@@ -22,10 +22,7 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   return (
-    <div
-      className={`${archivoBlack.variable} ${spaceGrotesk.variable} ${spaceMono.variable} platform-theme`}
-      style={{ backgroundColor: BG, color: CREAM, fontFamily: "var(--font-grotesk)", fontSize: 15, overflowX: "hidden" }}
-    >
+    <div className="platform-theme" style={{ backgroundColor: BG, color: CREAM, fontFamily: "var(--font-grotesk)", fontSize: 15, overflowX: "hidden" }}>
       <RecoveryRedirect />
       <PlatformStyles />
       <CircularNavMenu isAuthenticated={!!user} />

@@ -2,8 +2,7 @@
 
 /* ===== Design tokens ===== */
 @theme inline {
-  --font-body: var(--font-hanken-grotesk);
-  --font-mono-label: var(--font-space-mono);
+  --font-body: var(--font-grotesk);
   --font-heading: var(--font-poppins);
 }
 
@@ -32,7 +31,7 @@ body {
   color: #0a0a0a;
 }
 
-/* Titres et nom de la marque en Poppins (--font-heading) : duo avec Hanken Grotesk pour le reste
+/* Titres et nom de la marque en Poppins (--font-heading) : duo avec Space Grotesk pour le reste
    du texte. Les classes ".brand-font" ciblent les endroits où "Nom de la plateforme" n'est pas
    un titre sémantique (nav, sidebar) mais doit avoir le même traitement. */
 h1,

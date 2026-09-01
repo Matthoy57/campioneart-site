@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { archivoBlack, spaceGrotesk, spaceMono, archivo, BG, CREAM, LIME, GridBackdrop, ThinChecker, PlatformStyles } from "./platformTheme";
+import { archivo, BG, CREAM, LIME, GridBackdrop, ThinChecker, PlatformStyles } from "./platformTheme";
 
 // Coquille de toute la partie connectée — remplace l'ancien JamShell (sidebar). Validée par
 // itération sur /test avant d'être promue ici : menu façon Persona (bouton "Menu" qui ouvre un
@@ -123,10 +123,7 @@ function QuietFooter() {
 
 export function PersonaShell({ children }: { children: ReactNode }) {
   return (
-    <div
-      className={`${archivoBlack.variable} ${spaceGrotesk.variable} ${spaceMono.variable} platform-theme`}
-      style={{ position: "relative", background: BG, color: CREAM, fontFamily: "var(--font-grotesk)", minHeight: "100vh" }}
-    >
+    <div className="platform-theme" style={{ position: "relative", background: BG, color: CREAM, fontFamily: "var(--font-grotesk)", minHeight: "100vh" }}>
       <PlatformStyles />
       <GridBackdrop />
       <div className="relative flex flex-col" style={{ minHeight: "100vh" }}>
